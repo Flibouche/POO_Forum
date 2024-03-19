@@ -115,6 +115,12 @@ class Member {
         <strong>Email</strong> : $this->email <br><br>";
     }
 
+    //===================== Get Posts =====================// 
+
+
+    //===================== Get Topics =====================// 
+
+
     //===================== toString =====================// 
 
     public function __toString()

@@ -14,11 +14,12 @@ class Topic
 
     private static int $nbTopic = 0;
 
-    public function __construct(string $title)
+    public function __construct(string $title, string $creationDate)
     {
         self::$nbTopic++;
         $this->idTopic = self::$nbTopic;
         $this->title = $title;
+        $this->creationDate = new DateTime($creationDate);
         $this->categories = [];
         $this->posts = [];
     }

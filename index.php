@@ -24,12 +24,19 @@ $member3 = new Member("Quentin", "MdP3", "quentinm@elan-formation.fr");
 //===================== Posts =====================// 
 
 
+//===================== Categories =====================// 
+$c1 = new Category("Blabla");
+$c2 = new Category("Présentation");
+$c3 = new Category("Astuces et aides dev web");
 
 //===================== Actions =====================//
 echo $member1->getInfos();
 echo $member2->getInfos();
 echo $member3->getInfos();
 
+echo $c1->getInfos();
+echo $c2->getInfos();
+echo $c3->getInfos();
 
 
 

@@ -46,14 +46,14 @@ class Category {
     
     public function getInfos()
     {
-
+        return "<h2>Sujets de : $this</h2>";
     }
 
     //===================== toString =====================// 
 
     public function __toString()
     {
-
+        return $this->type;
     }
 }
 ?>
