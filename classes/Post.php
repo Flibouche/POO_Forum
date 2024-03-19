@@ -9,7 +9,7 @@ class Post {
 
     private static int $nbPost = 0;
 
-    public function __construct(string $comment) {
+    public function __construct(string $comment, string $publicationDate) {
         self::$nbPost++;
         $this->idPost = self::$nbPost;
         $this->comment = $comment;
@@ -46,7 +46,7 @@ class Post {
 
     //===================== Publication Date =====================// 
 
-    public function getPublicationDate() : string
+    public function getPublicationDate() : DateTime
     {
         return $this->publicationDate;
     }

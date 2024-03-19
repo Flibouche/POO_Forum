@@ -79,21 +79,21 @@ class Member {
 
     //===================== Role =====================// 
     
-    public function getRole() : string
-    {
-        return $this->role;
-    }
+    // public function getRole() : string
+    // {
+    //     return $this->role;
+    // }
     
-    public function setRole(string $role)
-    {
-        $this->role = $role;
+    // public function setRole(string $role)
+    // {
+    //     $this->role = $role;
         
-        return $this;
-    }
+    //     return $this;
+    // }
 
     //===================== Registration Date =====================// 
     
-    public function getRegistrationDate() : string
+    public function getRegistrationDate() : DateTime
     {
         return $this->registrationDate;
     }
