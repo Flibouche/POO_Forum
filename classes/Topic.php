@@ -16,7 +16,7 @@ class Topic
 
     private static int $nbTopic = 0;
 
-    public function __construct(Member $member, Category $category, string $title, string $creationDate)
+    public function __construct(Member $member, Category $category, string $title, string $creationDate, bool $isLocked = false)
     {
         self::$nbTopic++;
         $this->idTopic = self::$nbTopic;
@@ -24,6 +24,7 @@ class Topic
         $this->category = $category;
         $this->title = $title;
         $this->creationDate = new DateTime($creationDate);
+        $this->isLocked = $isLocked;
         $this->posts = [];
         $this->member->addTopic($this);
         $this->category->addTopic($this);
@@ -42,20 +43,20 @@ class Topic
 
         return $this;
     }
-    
-        //===================== Member =====================// 
-    
-        public function getMember(): Member
-        {
-            return $this->member;
-        }
-    
-        public function setMember(Member $member)
-        {
-            $this->member = $member;
-    
-            return $this;
-        }
+
+    //===================== Member =====================// 
+
+    public function getMember(): Member
+    {
+        return $this->member;
+    }
+
+    public function setMember(Member $member)
+    {
+        $this->member = $member;
+
+        return $this;
+    }
 
     //===================== Categories =====================// 
 
@@ -117,55 +118,50 @@ class Topic
 
     public function locked()
     {
-        if($this->isLocked)
-        {
+        if (!$this->isLocked) {
             $this->isLocked = false;
             return "Unlocked<br>";
-        } else
-        {
+        } else {
             $this->isLocked = true;
             return "Locked<br>";
         }
     }
 
     //===================== Posts =====================// 
-    
+
     public function getPosts(): array
     {
         return $this->posts;
     }
-    
+
     public function setPosts(array $posts)
     {
         $this->posts = $posts;
-        
+
         return $this;
     }
-    
+
     public function addPost(Post $post)
     {
         $this->posts[] = $post;
     }
-    
+
     //===================== Get Infos =====================// 
 
     public function getInfos()
     {
-        $result = "<h2>Messages du topic : $this (".count($this->posts).") </h2>
+        $result = "<h2 style='color:green'>Messages du topic : $this (" . count($this->posts) . ") </h2>
 
-        par $this->member le ".$this->getCreationDate()." <br>";
-        
-        foreach($this->topics as $topic) {
-            $topicBooked = ($topic->getIsBooked()) ? "text-bg-danger" : "text-bg-success";
-            $result .= "<span class='badge $topicBooked'>".$topic->locked()."</span>";
+        par $this->member le " . $this->getCreationDate() . " <br>";
+
+        $topicLocked = ($this->getIsLocked()) ? "text-bg-danger" : "text-bg-success";
+        $result .= "<span class='badge $topicLocked'>" . $this->locked() . "</span><br><br>";
+
+        foreach ($this->posts as $post) {
+            $result .= $post . "<br>
+            <i style='color:gray'>par $this->member le " . $post->getPublicationDate() . "</i><br><br>";
         }
 
-        foreach($this->posts as $post)
-        {
-            $result .= $post."<br>";
-            // echo "par $this->member le ".$this->getPost()->getPublicationDate();
-        }
-        
         return $result;
     }
 

@@ -95,13 +95,6 @@ class Post
         return $this;
     }
 
-    //===================== Get Infos =====================// 
-
-    public function getInfos()
-    {
-
-    }
-
     //===================== toString =====================// 
 
     public function __toString()

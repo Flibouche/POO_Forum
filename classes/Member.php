@@ -138,11 +138,13 @@ class Member
 
     public function getInfos()
     {
-        $result = "<h2>Sujets de $this</h2>";
+        $result = "<h2 style='color:red'>Sujets de $this</h2>";
 
-        foreach($this->topics as $topic)
-        {
-            $result .= $topic;
+        foreach ($this->topics as $topic) {
+            $result .= "$topic (" . count($topic->getPosts()) . ")<br>
+            <i style='color:gray'>par " . $this . " le " . $topic->getCreationDate() . "</i><br>";
+            $topicLocked = ($topic->getIsLocked()) ? "text-bg-danger" : "text-bg-success";
+            $result .= "<span class='badge $topicLocked'>" . $topic->locked() . "</span><br><br>";
         }
 
         return $result;

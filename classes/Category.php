@@ -70,15 +70,16 @@ class Category
 
     public function getInfos()
     {
-        $result = "<h2>Sujets de : $this (".count($this->topics).") </h2>";
+        $result = "<h2 style='color:blue'>Sujets de : $this (" . count($this->topics) . ") </h2>";
 
-        if(count($this->topics) == 0)
-        {
+        if (count($this->topics) == 0) {
             $result .= "<p style='color:red'>Pas de sujets dans cette catégorie !</p>";
         } else {
-            foreach($this->topics as $topic)
-            {
-                $result .= $topic;
+            foreach ($this->topics as $topic) {
+                $result .= "$topic (" . count($topic->getPosts()) . ")<br>
+                <i style='color:gray'>par " . $topic->getMember() . " le " . $topic->getCreationDate() . "</i><br>";
+                $topicLocked = ($topic->getIsLocked()) ? "text-bg-danger" : "text-bg-success";
+                $result .= "<span class='badge $topicLocked'>" . $topic->locked() . "</span><br><br>";
             }
         }
 
