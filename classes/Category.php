@@ -1,22 +1,27 @@
 <?php
 
-class Category {
+class Category
+{
 
     private int $idCategory;
 
     private string $type;
 
+    private array $topics;
+
     private static int $nbCategory = 0;
 
-    public function __construct(string $type) {
+    public function __construct(string $type)
+    {
         self::$nbCategory++;
         $this->idCategory = self::$nbCategory;
         $this->type = $type;
+        $this->topics = [];
     }
 
     //===================== ID Category =====================// 
 
-    public function getIdCategory() : int
+    public function getIdCategory(): int
     {
         return $this->idCategory;
     }
@@ -30,7 +35,7 @@ class Category {
 
     //===================== Type =====================// 
 
-    public function getType() : string
+    public function getType(): string
     {
         return $this->type;
     }
@@ -41,12 +46,43 @@ class Category {
 
         return $this;
     }
-    
+
+    //===================== Topics =====================// 
+
+    public function getTopics(): array
+    {
+        return $this->topics;
+    }
+
+    public function setTopics(Topic $topics)
+    {
+        $this->topics = $topics;
+
+        return $this;
+    }
+
+    public function addTopic(Topic $topic)
+    {
+        $this->topics[] = $topic;
+    }
+
     //===================== Get Infos =====================// 
-    
+
     public function getInfos()
     {
-        return "<h2>Sujets de : $this</h2>";
+        $result = "<h2>Sujets de : $this (".count($this->topics).") </h2>";
+
+        if(count($this->topics) == 0)
+        {
+            $result .= "<p style='color:red'>Pas de sujets dans cette catégorie !</p>";
+        } else {
+            foreach($this->topics as $topic)
+            {
+                $result .= $topic;
+            }
+        }
+
+        return $result;
     }
 
     //===================== toString =====================// 
@@ -56,4 +92,3 @@ class Category {
         return $this->type;
     }
 }
-?>

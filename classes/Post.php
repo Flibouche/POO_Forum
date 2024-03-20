@@ -1,24 +1,33 @@
 <?php
 
-class Post {
+class Post
+{
 
     private int $idPost;
+
+    private Member $member;
+    private Topic $topic;
 
     private string $comment;
     private DateTime $publicationDate;
 
     private static int $nbPost = 0;
 
-    public function __construct(string $comment, string $publicationDate) {
+    public function __construct(Member $member, Topic $topic, string $comment, string $publicationDate)
+    {
         self::$nbPost++;
         $this->idPost = self::$nbPost;
+        $this->member = $member;
+        $this->topic = $topic;
         $this->comment = $comment;
         $this->publicationDate = new DateTime($publicationDate);
+        $this->member->addPost($this);
+        $this->topic->addPost($this);
     }
 
     //===================== ID Post =====================// 
-    
-    public function getIdPost() : int
+
+    public function getIdPost(): int
     {
         return $this->idPost;
     }
@@ -30,9 +39,37 @@ class Post {
         return $this;
     }
 
+    //===================== Member =====================// 
+
+    public function getMember(): Member
+    {
+        return $this->member;
+    }
+
+    public function setMember(Member $member)
+    {
+        $this->member = $member;
+
+        return $this;
+    }
+
+    //===================== Topic =====================// 
+
+    public function getTopic(): Topic
+    {
+        return $this->topic;
+    }
+
+    public function setTopic(Topic $topic)
+    {
+        $this->topic = $topic;
+
+        return $this;
+    }
+
     //===================== Comment =====================// 
-    
-    public function getComment() : string
+
+    public function getComment(): string
     {
         return $this->comment;
     }
@@ -40,15 +77,15 @@ class Post {
     public function setComment(string $comment)
     {
         $this->comment = $comment;
-        
+
         return $this;
     }
 
     //===================== Publication Date =====================// 
 
-    public function getPublicationDate() : DateTime
+    public function getPublicationDate(): string
     {
-        return $this->publicationDate;
+        return $this->publicationDate->format("d-m-Y H:i");
     }
 
     public function setPublicationDate(string $publicationDate)
@@ -59,7 +96,7 @@ class Post {
     }
 
     //===================== Get Infos =====================// 
-    
+
     public function getInfos()
     {
 
@@ -69,8 +106,6 @@ class Post {
 
     public function __toString()
     {
-
+        return $this->comment;
     }
 }
-
-?>
